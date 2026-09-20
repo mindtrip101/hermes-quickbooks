@@ -1,0 +1,24 @@
+# Example Hermes MCP snippet. Copy into Hermes config.yaml and expand tools.include
+# from GET http://127.0.0.1:14112/v1/tool-schemas
+mcp_servers:
+  quickbooks:
+    command: python
+    args:
+      - /opt/data/scripts/quickbooks/qbo_mcp.py
+    env:
+      QBO_BASE: http://127.0.0.1:14112
+      QBO_AGENT_ID: hermes-operator
+      QBO_ADAPTER_TOKEN_FILE: /opt/data/secrets/qbo-adapter-token
+    tools:
+      include:
+        - qbo_health
+        - qbo_get_company_info
+        - qbo_search_customers
+        - qbo_search_invoices
+        - qbo_get_invoice
+        - qbo_get_overdue_invoices
+        - qbo_profit_and_loss
+        - qbo_balance_sheet
+        - qbo_list_approvals
+    timeout: 30
+    connect_timeout: 20

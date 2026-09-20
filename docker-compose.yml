@@ -1,0 +1,41 @@
+services:
+  hermes-qbo:
+    build: .
+    image: hermes-qbo:1.0.0
+    container_name: hermes-qbo
+    restart: unless-stopped
+    environment:
+      QUICKBOOKS_ENV: ${QUICKBOOKS_ENV:-sandbox}
+      QBO_ALLOW_PRODUCTION_WRITES: ${QBO_ALLOW_PRODUCTION_WRITES:-false}
+      QBO_BIND: 0.0.0.0
+      QBO_PORT: "14112"
+      QBO_DATA_DIR: /data
+      QBO_SECRETS_DIR: /secrets
+      QBO_CONFIG_DIR: /app/config
+      QBO_REDIRECT_URI: ${QBO_REDIRECT_URI:-http://localhost:14112/oauth/callback}
+      QBO_MINOR_VERSION: ${QBO_MINOR_VERSION:-75}
+    ports:
+      - "127.0.0.1:14112:14112"
+    volumes:
+      - ./data:/data
+      - ./config:/app/config:ro
+      - ${QBO_SECRETS_HOST:-./secrets}:/secrets:ro
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - import urllib.request; assert urllib.request.urlopen('http://127.0.0.1:14112/health', timeout=3).status == 200
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    mem_limit: 512m
+    cpus: "0.5"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    security_opt:
+      - no-new-privileges:true

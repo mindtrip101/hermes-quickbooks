@@ -1,0 +1,16 @@
+default_tenant: company_a
+tenants:
+  company_a:
+    display_name: Company A
+    environment: sandbox
+    credentials_ref: company_a
+    allowed_agents:
+      - hermes-operator
+      - hermes-telegram
+  company_b:
+    display_name: Company B
+    environment: sandbox
+    credentials_ref: company_b
+    allowed_agents:
+      - hermes-operator
+      - hermes-telegram

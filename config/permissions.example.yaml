@@ -1,0 +1,12 @@
+# Agent identity is taken from the MCP adapter environment, never from model arguments.
+agents:
+  hermes-operator:
+    read: true
+    draft: true
+    write: approval_required
+    tenants: [company_a, company_b]
+  hermes-telegram:
+    read: true
+    draft: true
+    write: false
+    tenants: [company_a, company_b]
