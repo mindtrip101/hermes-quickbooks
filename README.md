@@ -95,7 +95,7 @@ Open the app → **Keys & credentials** (or **Keys & OAuth**).
 ## 3. Install this connector
 
 ```sh
-git clone https://github.com/YOUR_GITHUB_USERNAME/hermes-quickbooks.git
+git clone https://github.com/mindtrip101/hermes-quickbooks.git
 cd hermes-quickbooks
 cp config/tenants.example.yaml config/tenants.yaml
 cp .env.example .env
